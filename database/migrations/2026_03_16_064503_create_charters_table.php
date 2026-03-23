@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('charters', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->foreignId('office_id')->constrained('offices')->onDelete('cascade');
             $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
             $table->text('description')->nullable();

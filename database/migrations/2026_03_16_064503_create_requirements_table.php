@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('requirements', function (Blueprint $table) {
             $table->id();
-
             $table->text('description')->nullable();
             $table->text('where_to_secure')->nullable();
-            $table->foreignId('charter_id')->constrained('charters')->onDelete('cascade');
+            $table->foreignId('charter_id')->nullable();
             $table->string('is_other')->nullable();
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
 

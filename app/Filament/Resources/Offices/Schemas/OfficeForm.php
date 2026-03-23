@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Offices\Schemas;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class OfficeForm
@@ -11,6 +12,9 @@ class OfficeForm
         return $schema
             ->components([
                 //
+                TextInput::make('name'),
+                TextInput::make('abbreviation'),
+
             ]);
     }
 }

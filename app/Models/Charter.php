@@ -12,12 +12,14 @@ class Charter extends Model
         'office_id',
         'users_id',
         'description',
+        'version',
         'classification',
         'type',
         'why_may_read',
         'created_at',
         'updated_at',
     ];
+
 
     protected $dates = ['created_at', 'updated_at'];
 

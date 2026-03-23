@@ -8,20 +8,17 @@ use App\Filament\Resources\Services\Pages\ListServices;
 use App\Filament\Resources\Services\Schemas\ServiceForm;
 use App\Filament\Resources\Services\Tables\ServicesTable;
 use App\Models\Service;
-use BackedEnum;
 use UnitEnum;
-
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
-
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
     {
@@ -30,7 +27,18 @@ class ServiceResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return ServicesTable::configure($table);
+        // Configure the base table
+        $table = ServicesTable::configure($table);
+
+        // Apply office filter if query parameter exists
+        $officeId = request()->query('office_id');
+        if ($officeId) {
+            $table->modifyQueryUsing(
+                fn (Builder $query) => $query->where('office_id', $officeId)
+            );
+        }
+
+        return $table;
     }
 
     public static function getRelations(): array

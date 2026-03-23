@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offices', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->string('description')->nullable(); // make nullable if ne
-            $table->string('abbreviation')->nullable();
+        Schema::table('charters', function (Blueprint $table) {
+            $table->unsignedBigInteger('users_id')->nullable()->change();
         });
     }
 
@@ -25,7 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offices');
-        
+        Schema::table('charters', function (Blueprint $table) {
+            $table->unsignedBigInteger('users_id')->nullable(false)->change();
+        });
     }
 };
+

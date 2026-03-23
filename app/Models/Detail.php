@@ -27,4 +27,8 @@ class Detail extends Model
     {
         return $this->belongsTo(Charter::class);
     }
+    public function office(): BelongsTo
+    {
+        return $this->belongsTo(Office::class);
+    }
 }

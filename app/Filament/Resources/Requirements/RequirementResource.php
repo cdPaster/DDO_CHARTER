@@ -20,7 +20,6 @@ class RequirementResource extends Resource
     protected static ?string $model = Requirement::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
     {
