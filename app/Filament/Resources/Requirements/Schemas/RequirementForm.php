@@ -13,12 +13,14 @@ class RequirementForm
     {
         return $schema
             ->components([
+
+                TextInput::make("description")->label('Checklist of Requirements'),
                 TextInput::make("where_to_secure")->required(),
-                TextInput::make("description")->required(),
                 
                 Select::make('service_id')
                     ->label('Service')
                     ->options(Service::all()->pluck('service_name', 'id'))
+                    ->searchable()
                     ->required(),
             ]);
     }

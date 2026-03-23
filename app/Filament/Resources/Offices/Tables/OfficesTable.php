@@ -46,7 +46,7 @@ class OfficesTable
                         'office_id' => $record->id, // <-- pass office_id as query
                     ])),
             ])
-            ->toolbarActions([
+            ->toolbarActions([  
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

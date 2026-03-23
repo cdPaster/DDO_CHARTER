@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('fees')->nullable();
             $table->string('processing_time')->nullable();
             $table->text('person_responsible')->nullable();
-            $table->foreignId('charter_id')->constrained('charters')->onDelete('cascade');
+            $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

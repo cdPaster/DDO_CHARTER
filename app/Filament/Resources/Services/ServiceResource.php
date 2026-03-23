@@ -13,9 +13,13 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Infolist;
 
 class ServiceResource extends Resource
 {
+    protected static ?string $modelHeader = 'Service';  
+        
+
     protected static ?string $model = Service::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -34,12 +38,13 @@ class ServiceResource extends Resource
         $officeId = request()->query('office_id');
         if ($officeId) {
             $table->modifyQueryUsing(
-                fn (Builder $query) => $query->where('office_id', $officeId)
+                fn(Builder $query) => $query->where('office_id', $officeId)
             );
         }
 
         return $table;
     }
+    
 
     public static function getRelations(): array
     {
@@ -52,8 +57,8 @@ class ServiceResource extends Resource
     {
         return [
             'index' => ListServices::route('/'),
-            'create' => CreateService::route('/create'),
-            'edit' => EditService::route('/{record}/edit'),
+            // 'create' => CreateService::route('/create'),
+            // 'edit' => EditService::route('/{record}/edit'),
         ];
     }
 }

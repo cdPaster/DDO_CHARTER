@@ -14,12 +14,13 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class RequirementResource extends Resource
 {
     protected static ?string $model = Requirement::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
-
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
     {
@@ -28,7 +29,26 @@ class RequirementResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return RequirementsTable::configure($table);
+        // Configure the base table
+        $table = RequirementsTable::configure($table);
+
+        // Filter by service_id if provided
+        $serviceId = request()->query('service_id');
+        if ($serviceId) {
+            $table->modifyQueryUsing(
+                fn (Builder $query) => $query->where('service_id', $serviceId)
+            );
+        }
+
+        // Optional: Filter by office_id if provided
+        $officeId = request()->query('office_id');
+        if ($officeId) {
+            $table->modifyQueryUsing(
+                fn (Builder $query) => $query->where('office_id', $officeId)
+            );
+        }
+
+        return $table;
     }
 
     public static function getRelations(): array
@@ -42,8 +62,8 @@ class RequirementResource extends Resource
     {
         return [
             'index' => ListRequirements::route('/'),
-            'create' => CreateRequirement::route('/create'),
-            'edit' => EditRequirement::route('/{record}/edit'),
+            // 'create' => CreateRequirement::route('/create'),
+            // 'edit' => EditRequirement::route('/{record}/edit'),
         ];
     }
 }

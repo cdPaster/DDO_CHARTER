@@ -3,19 +3,17 @@
 namespace App\Filament\Resources\Services\Pages;
 
 use App\Filament\Resources\Services\ServiceResource;
-use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\EditAction;
+use Filament\Resources\Pages\ViewRecord;
 
-class ListServices extends ListRecords
+class ViewService extends ViewRecord
 {
     protected static string $resource = ServiceResource::class;
-    protected ?string $subheading = 'Manage all provincial government services and their requirements.';
 
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
-         
+            EditAction::make(),
         ];
     }
 }

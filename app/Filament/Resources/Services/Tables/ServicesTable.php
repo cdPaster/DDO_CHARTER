@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources\Services\Tables;
 
+use App\Filament\Resources\Requirements\RequirementResource;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Table;
 use Filament\Actions\ViewAction;
 use Filament\Actions\DeleteAction;
-
+use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 
@@ -18,47 +19,48 @@ class ServicesTable
     {
         return $table
             ->columns([
-                TextColumn::make('office.name')
-                    ->label('Office')
-                    ->wrap()
-                    ->sortable()
-                    ->searchable(), // show related office name
-                
                 TextColumn::make('service_name')
                     ->wrap()
-                     ->searchable()
+                    ->searchable()
                     ->label('Title'),
+
+                TextColumn::make('service_description')
+                    ->wrap()
+                    ->grow(false),
 
                 TextColumn::make('classification')
                     ->badge()
-                    ->grow(false) 
+                    ->alignCenter()
+                    ->grow(false)
                     ->color(fn($state) => match ($state) {
-                        'Simple' => 'success',
-                        'Complex' => 'info',
-                        'Technical' => 'warning',
+                        'Simple'          => 'success',
+                        'Complex'         => 'info',
+                        'Technical'       => 'warning',
                         'Highly Technical' => 'danger',
+                        default           => 'gray',
                     })
                     ->label('Classification'),
 
                 TextColumn::make('service_type')
                     ->badge()
-                    ->grow(false) 
+                    ->grow(false)
                     ->color('primary')
                     ->searchable()
                     ->label('Type'),
-                    
+
                 TextColumn::make('who_may_avail')
                     ->wrap()
                     ->label('Who may avail'),
             ])
+            ->defaultSort('service_name')
             ->filters([
                 SelectFilter::make('office')
                     ->relationship('office', 'name'),
                 SelectFilter::make('classification')
-                    ->options([ 
-                        'Simple' => 'Simple',
-                        'Complex' => 'Complex',
-                        'Technical' => 'Technical',
+                    ->options([
+                        'Simple'          => 'Simple',
+                        'Complex'         => 'Complex',
+                        'Technical'       => 'Technical',
                         'Highly Technical' => 'Highly Technical',
                     ]),
             ])
@@ -66,14 +68,24 @@ class ServicesTable
                 EditAction::make()
                     ->button()
                     ->label('Edit'),
+
                 DeleteAction::make()
                     ->button()
                     ->label('Delete'),
+
                 ViewAction::make()
-                    ->color('info')
-                    ->label('View Details')
-                    ->size('sm')
                     ->button()
+                    ->color('info')
+                    ->label('View Details'),
+
+                Action::make('view_requirements')
+                    ->button()
+                    ->color('primary')
+                    ->label('View Requirements')
+                    ->icon('heroicon-o-clipboard-document-list')
+                    ->url(fn($record) => RequirementResource::getUrl('index', [
+                        'service_id' => $record->id,
+                    ])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

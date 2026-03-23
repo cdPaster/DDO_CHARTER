@@ -1,16 +1,7 @@
-# DDO Charter Seeder Fix TODO
+# Fix Services.name column error
 
-## Steps to Complete:
-
-- [x] Step 1: Generate new migration for adding `version` column to charters table
-- [x] Step 2: Implement migration file changes
-- [x] Step 3: Run `php artisan migrate` to apply migration
-- [x] Step 4: Update Charter model `$fillable` to include 'version'
-- [x] Step 5: Test seeder: `php artisan db:seed --class=RequirementsSeeder` ✅ SUCCESS
-- [x] Step 6: Additional migration for users_id nullable ✅
-- [x] Step 7: Retest seeder ✅
-- [x] Step 8: Verify and complete ✅
-- [ ] Step 6: Verify data in tinker or DB
-- [ ] Step 7: Mark complete and run full seed
-
-**Current Progress: All migrations complete (version added to charters, users_id/service_id nullable). Retesting seeder now.**
+1. ✅ Create this TODO.md  
+2. ✅ Update app/Models/Service.php $fillable to match DB schema (service_name, etc.)  
+3. [ ] Add defaultSort to ServicesTable.php  
+4. [ ] Clear caches: php artisan config:clear && php artisan cache:clear  
+5. [ ] Verify fix: Services page loads without SQL error

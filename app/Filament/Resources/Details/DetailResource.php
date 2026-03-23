@@ -41,8 +41,8 @@ class DetailResource extends Resource
     {
         return [
             'index' => ListDetails::route('/'),
-            'create' => CreateDetail::route('/create'),
-            'edit' => EditDetail::route('/{record}/edit'),
+            // 'create' => CreateDetail::route('/create'),
+            // 'edit' => EditDetail::route('/{record}/edit'),
         ];
     }
 }

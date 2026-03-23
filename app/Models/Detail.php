@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Detail extends Model
 {
-    protected $fillable = [
+    protected $fillable = [     
+        'service_id',
         'client_step',
         'agency_action',
         'fees',
         'processing_time',
         'person_responsible',
-        'created_at',
-        'updated_at',
-        'charter_id',
+     
     ];
 
     protected $dates = ['created_at', 'updated_at'];
@@ -26,6 +25,10 @@ class Detail extends Model
     public function charter(): BelongsTo
     {
         return $this->belongsTo(Charter::class);
+    }
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
     public function office(): BelongsTo
     {

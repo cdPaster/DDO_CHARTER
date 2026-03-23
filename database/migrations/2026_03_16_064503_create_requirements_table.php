@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->text('description')->nullable();
             $table->text('where_to_secure')->nullable();
-            $table->foreignId('charter_id')->nullable();
             $table->string('is_other')->nullable();
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
 

@@ -7,6 +7,10 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
+use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
+
+
 // use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 
@@ -16,6 +20,7 @@ class RequirementsTable
     {
         return $table
             ->columns([
+                TextColumn::make("service.service_name")->wrap(),
                 TextColumn::make('description')
                     ->label('Requirement')
                     ->searchable()
@@ -27,7 +32,7 @@ class RequirementsTable
                     ->label('Where to Secure')
                     ->searchable()
                     ->color('info')
-                    ->badge()
+                    // ->badge()
                     ->sortable()
                     ->wrap()
                     ->lineClamp(2),
@@ -36,7 +41,15 @@ class RequirementsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                DeleteAction::make()
+                    ->label(false)
+                    ->color('danger')
+                    ->button(),
+                EditAction::make()->color('primary')->label(false)
+                        ->button(),
+                ViewAction::make('view_services')
+                    ->button()
+                    ->color('info')
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
