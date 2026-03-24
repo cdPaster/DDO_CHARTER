@@ -27,6 +27,7 @@ class DetailResource extends Resource
     {
         return parent::getEloquentQuery()->latest();
     }
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Schema $schema): Schema
     {

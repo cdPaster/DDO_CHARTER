@@ -18,13 +18,16 @@ use Filament\Infolists\Infolist;
 
 class ServiceResource extends Resource
 {
-    protected static ?string $modelHeader = 'Service';  
+    protected static ?string $modelHeader = 'Service';
     protected static ?int $navigationSort = 2;
 
     protected static ?string $model = Service::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    // public static function getRecordTitleAttribute(): string
+    // {
+    //     return 'service_name';
+    // }
     public static function form(Schema $schema): Schema
     {
         return ServiceForm::configure($schema);
@@ -57,8 +60,8 @@ class ServiceResource extends Resource
     {
         return [
             'index'  => ListServices::route('/'),
-            'create' => CreateService::route('/create'),
-            'edit'   => EditService::route('/{record}/edit'),
+            // 'create' => CreateService::route('/create'),
+            // 'edit'   => EditService::route('/{record}/edit'),
             'view'   => ViewService::route('/{record}'),
         ];
     }

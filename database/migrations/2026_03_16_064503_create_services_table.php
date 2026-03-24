@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +13,7 @@ return new class extends Migration
             $table->foreignId('office_id')->constrained()->cascadeOnDelete();
             $table->string('service_name');        // required
             $table->text('service_description')->nullable();
-            $table->string('service_type')->nullable();
+            $table->json('service_type')->nullable();
             $table->string('classification')->nullable();
             $table->string('who_may_avail')->nullable();
             $table->string('fees_required')->nullable();

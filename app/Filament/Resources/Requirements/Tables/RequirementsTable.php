@@ -20,7 +20,7 @@ class RequirementsTable
     {
         return $table
             ->columns([
-                TextColumn::make("service.service_name")->wrap(),
+                // TextColumn::make("service.service_name")->wrap(),
                 TextColumn::make('description')
                     ->label('Requirement')
                     ->searchable()

@@ -12,8 +12,27 @@ use Filament\Schemas\Schema;
 class ViewService extends ViewRecord
 {
     protected static string $resource = ServiceResource::class;
-
     protected string $view = 'filament.resources.services.view-service';
+
+
+    //title
+    public function getTitle(): string
+    {
+        $officeName = $this->record->office?->name;
+
+        return $officeName
+            ? "Process for {$this->record->service_name} "
+            : "Details of {$this->record->service_name}";
+    }
+    //sub title
+    public function getSubheading(): ?string
+    {
+        $officeName = $this->record->office?->name;
+
+        return $officeName
+            ? "{$officeName}"
+            : " {$officeName}";
+    }
 
     public function getSteps(): array
     {

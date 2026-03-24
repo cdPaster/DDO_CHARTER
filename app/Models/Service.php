@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
-protected $fillable = [
+    protected $fillable = [
         'office_id',
         'service_name',
         'service_description',
@@ -18,7 +18,9 @@ protected $fillable = [
         'fees_required',
         'processing_time',
     ];
-
+ protected $casts = [
+        'service_type' => 'array', // <-- important for multi-select
+    ];
     /**
      * Get the office that owns this service
      */
@@ -27,10 +29,10 @@ protected $fillable = [
         return $this->belongsTo(Office::class);
     }
 
-public function details()
-{
-    return $this->hasMany(\App\Models\Detail::class);
-}
+    public function details()
+    {
+        return $this->hasMany(\App\Models\Detail::class);
+    }
 
     /**
      * Get the requirements for this service
@@ -40,11 +42,5 @@ public function details()
         return $this->hasMany(Requirement::class);
     }
 
-    /**
-     * Get the processing steps for this service
-     */
-    // public function steps(): HasMany
-    // {
-    //     return $this->hasMany(ServiceStep::class);
-    // }
+    
 }

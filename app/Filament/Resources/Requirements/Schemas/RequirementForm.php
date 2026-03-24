@@ -15,7 +15,7 @@ class RequirementForm
             ->components([
 
                 TextInput::make("description")->label('Checklist of Requirements'),
-                TextInput::make("where_to_secure")->required(),
+                TextInput::make("where_to_secure"),
                 
                 Select::make('service_id')
                     ->label('Service')

@@ -25,6 +25,7 @@ class ServiceForm
                 
                 Select::make('service_type')
                     ->label('Service Type')
+                    ->multiple()
                     ->options([
                         'G2C'=> 'G2C',
                         'G2B'=> 'G2B',
@@ -43,8 +44,8 @@ class ServiceForm
                     ->label('Type')
                     ->required(),
                 TextInput::make('who_may_avail'),
-                TextInput::make('fees_required'),
-                TextInput::make('processing_time'),
+                // TextInput::make('fees_required'),
+                // TextInput::make('processing_time'),
             ]);
     }
 }
