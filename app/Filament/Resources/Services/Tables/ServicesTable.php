@@ -12,7 +12,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-
+use App\Filament\Resources\Services\ServiceResource;
 class ServicesTable
 {
     public static function configure(Table $table): Table
@@ -76,6 +76,7 @@ class ServicesTable
                 ViewAction::make()
                     ->button()
                     ->color('info')
+                    ->url(fn($record) => ServiceResource::getUrl('view', ['record' => $record]))
                     ->label('View Details'),
 
                 Action::make('view_requirements')

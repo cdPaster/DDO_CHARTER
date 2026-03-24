@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Details\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 
@@ -14,59 +15,37 @@ class DetailsTable
     {
         return $table
             ->columns([
+                TextColumn::make('service.service_name')
+                    ->label('Service')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap(),
 
                 TextColumn::make('client_step')
-                    ->label('CLIENT STEP')
+                    ->label('Client Step')
+                    ->searchable()
                     ->wrap(),
-
-                TextColumn::make('agency_actions')
-                    ->label('AGENCY ACTION')
-                    ->html()
-                    ->formatStateUsing(function ($state) {
-                        if (!$state) return '-';
-
-                        $output = "<div class='space-y-1 text-sm'>";
-
-                        foreach ($state as $index => $action) {
-                            $output .= "
-                                <div>
-                                    <strong>{$action['step']}</strong> {$action['description']}
-                                </div>
-                            ";
-
-                            // Optional divider (like your screenshot)
-                            if ($index === 2) {
-                                $output .= "<hr class='my-1'>";
-                            }
-                        }
-
-                        $output .= "</div>";
-
-                        return $output;
-                    }),
 
                 TextColumn::make('fees')
-                    ->label('FEE')
+                    ->label('Fee')
+                    ->default('None')
                     ->badge()
-                    ->color('gray'),
+                    ->color(fn($state) => strtolower($state ?? 'none') === 'none' ? 'gray' : 'success'),
 
                 TextColumn::make('processing_time')
-                    ->label('PROCESSING TIME')
-                    ->color('primary'),
+                    ->label('Processing Time')
+                    ->numeric()
+                    ->sortable(),
 
                 TextColumn::make('person_responsible')
-                    ->label('PERSON RESPONSIBLE')
+                    ->label('Person Responsible')
                     ->wrap(),
             ])
-
-            ->filters([
-                //
-            ])
-
+            ->filters([])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->button(),
+                DeleteAction::make()->button(),
             ])
-
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

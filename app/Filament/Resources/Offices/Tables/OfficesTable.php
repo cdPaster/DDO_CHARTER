@@ -10,12 +10,15 @@ use Filament\Actions\ViewAction;
 use Filament\Actions\DeleteAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+
 
 class OfficesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+
             ->columns([
                 TextColumn::make('id')->label('ID')->sortable(),
                 TextColumn::make('name')->label('Office Name')->searchable(true),
@@ -42,11 +45,11 @@ class OfficesTable
                     ->label('View Services')
                     ->color('info')
                     ->icon('heroicon-o-briefcase')
-                    ->url(fn ($record) => ServiceResource::getUrl('index', [
+                    ->url(fn($record) => ServiceResource::getUrl('index', [
                         'office_id' => $record->id, // <-- pass office_id as query
                     ])),
             ])
-            ->toolbarActions([  
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

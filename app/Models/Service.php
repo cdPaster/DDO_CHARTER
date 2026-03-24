@@ -27,6 +27,11 @@ protected $fillable = [
         return $this->belongsTo(Office::class);
     }
 
+public function details()
+{
+    return $this->hasMany(\App\Models\Detail::class);
+}
+
     /**
      * Get the requirements for this service
      */

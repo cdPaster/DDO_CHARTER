@@ -14,6 +14,7 @@ use Filament\Resources\Pages\ListRecords;
 use Filament\Actions\Action;
 
 
+
 class ListDetails extends ListRecords
 {
     protected static string $resource = DetailResource::class;

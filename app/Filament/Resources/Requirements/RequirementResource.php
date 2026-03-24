@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 class RequirementResource extends Resource
 {
     protected static ?string $model = Requirement::class;
+    protected static ?int $navigationSort = 3;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 

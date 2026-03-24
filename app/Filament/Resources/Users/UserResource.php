@@ -15,7 +15,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class UserResource extends Resource
-{
+{   
+     protected static ?int $navigationSort = 5;
     protected static ?string $model = User::class;
     public static function getNavigationGroup(): ?string
     {

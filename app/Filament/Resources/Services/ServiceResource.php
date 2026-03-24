@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Services;
 use App\Filament\Resources\Services\Pages\CreateService;
 use App\Filament\Resources\Services\Pages\EditService;
 use App\Filament\Resources\Services\Pages\ListServices;
+use App\Filament\Resources\Services\Pages\ViewService;
 use App\Filament\Resources\Services\Schemas\ServiceForm;
 use App\Filament\Resources\Services\Tables\ServicesTable;
 use App\Models\Service;
@@ -18,7 +19,7 @@ use Filament\Infolists\Infolist;
 class ServiceResource extends Resource
 {
     protected static ?string $modelHeader = 'Service';  
-        
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $model = Service::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
@@ -44,7 +45,6 @@ class ServiceResource extends Resource
 
         return $table;
     }
-    
 
     public static function getRelations(): array
     {
@@ -56,9 +56,10 @@ class ServiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListServices::route('/'),
-            // 'create' => CreateService::route('/create'),
-            // 'edit' => EditService::route('/{record}/edit'),
+            'index'  => ListServices::route('/'),
+            'create' => CreateService::route('/create'),
+            'edit'   => EditService::route('/{record}/edit'),
+            'view'   => ViewService::route('/{record}'),
         ];
     }
 }

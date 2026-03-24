@@ -7,29 +7,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Detail extends Model
 {
-    protected $fillable = [     
+    protected $fillable = [
         'service_id',
         'client_step',
-        'agency_action',
-        'fees',
-        'processing_time',
-        'person_responsible',
-     
+        'agency_actions', // 👈 fixed: was agency_action
     ];
 
-    protected $dates = ['created_at', 'updated_at'];
+    protected $casts = [
+        'agency_actions' => 'array', // 👈 required for repeater JSON
+    ];
 
-    /**
-     * Get the charter that owns this detail
-     */
     public function charter(): BelongsTo
     {
         return $this->belongsTo(Charter::class);
     }
-    public function service()
+
+    public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
     }
+
     public function office(): BelongsTo
     {
         return $this->belongsTo(Office::class);
