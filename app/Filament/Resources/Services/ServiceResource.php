@@ -23,11 +23,7 @@ class ServiceResource extends Resource
 
     protected static ?string $model = Service::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
-    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-    // public static function getRecordTitleAttribute(): string
-    // {
-    //     return 'service_name';
-    // }
+    
     public static function form(Schema $schema): Schema
     {
         return ServiceForm::configure($schema);
@@ -39,14 +35,14 @@ class ServiceResource extends Resource
         $table = ServicesTable::configure($table);
 
         // Apply office filter if query parameter exists
-        $officeId = request()->query('office_id');
-        if ($officeId) {
-            $table->modifyQueryUsing(
-                fn(Builder $query) => $query->where('office_id', $officeId)
-            );
-        }
+        $serviceId = request()->query('service_id');
+    if ($serviceId) {
+        $table->modifyQueryUsing(
+            fn(Builder $query) => $query->where('id', $serviceId)
+        );
+    }
 
-        return $table;
+    return $table;
     }
 
     public static function getRelations(): array
