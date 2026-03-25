@@ -27,7 +27,7 @@ class Requirement extends Model
     public function charter(): BelongsTo
     {
         return $this->belongsTo(Charter::class);
-    }
+    }   
 
     /**
      * Get the service that owns this requirement
@@ -36,4 +36,6 @@ class Requirement extends Model
     {
         return $this->belongsTo(Service::class);
     }
+    
+    
 }

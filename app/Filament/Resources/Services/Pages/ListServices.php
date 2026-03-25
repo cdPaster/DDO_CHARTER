@@ -40,6 +40,7 @@ class ListServices extends ListRecords
             CreateAction::make(),
         ];
     }
+    
 
     // Table query filtered by office
     protected function getTableQuery(): Builder

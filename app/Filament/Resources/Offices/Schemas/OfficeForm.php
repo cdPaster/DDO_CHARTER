@@ -12,11 +12,11 @@ class OfficeForm
     {
         return $schema
             ->components([
-                //
-                FileUpload::make('attachment')->label('Attachment')
-                    ->disk('public')        // store in storage/app/public
-                    ->directory('attachments') // optional: store in a subfolder
-                    ->visibility('public'),
+                // //
+                // FileUpload::make('attachment')->label('Attachment')
+                //     ->disk('public')        // store in storage/app/public
+                //     ->directory('attachments') // optional: store in a subfolder
+                //     ->visibility('public'),
 
                 TextInput::make('name'),
                 TextInput::make('abbreviation'),

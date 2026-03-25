@@ -18,6 +18,7 @@ class ServicesTable
     public static function configure(Table $table): Table
     {
         return $table
+        ->recordUrl(null)
             ->columns([
                 TextColumn::make('service_name')
                     ->wrap()
@@ -77,7 +78,7 @@ class ServicesTable
                     ->button()
                     ->color('info')
                     ->url(fn($record) => ServiceResource::getUrl('view', ['record' => $record]))
-                    ->label('View Details'),
+                    ->label('View Process'),
 
                 Action::make('view_requirements')
                     ->button()
