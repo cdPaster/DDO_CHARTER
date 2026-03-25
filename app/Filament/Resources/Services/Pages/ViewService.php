@@ -47,7 +47,7 @@ class ViewService extends ViewRecord
             ])
             ->toArray();
     }
-
+    //ADD FUNCTION
     public function addDetailAction(): Action
     {
         return Action::make('addDetail')
@@ -62,7 +62,7 @@ class ViewService extends ViewRecord
                 $this->redirect(request()->header('Referer'));
             });
     }
-
+    //EDIT FUNCTION
     public function editDetailAction(): Action
     {
         return Action::make('editDetail')
@@ -79,6 +79,22 @@ class ViewService extends ViewRecord
                 $this->redirect(request()->header('Referer'));
             });
     }
+
+    //DELETE FUNCTION
+    public function deleteDetailAction(): Action
+{
+    return Action::make('deleteDetail')
+        ->modalHeading('Delete Detail')
+        ->modalDescription('Are you sure you want to delete this detail? This action cannot be undone.')
+        ->modalSubmitActionLabel('Yes, delete it')
+        ->color('danger')
+        ->requiresConfirmation()
+        ->action(function (array $arguments) {
+            $detail = Detail::find($arguments['id']);
+            $detail?->delete();
+            $this->redirect(request()->header('Referer'));
+        });
+}
 
     protected function getHeaderActions(): array
     {

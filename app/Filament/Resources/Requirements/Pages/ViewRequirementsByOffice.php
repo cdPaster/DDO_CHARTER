@@ -101,7 +101,7 @@ class ViewRequirementsByOffice extends Page implements HasTable
             EditAction::make()
                 ->label('Edit')
                 ->button()
-                ->icon('heroicon-o-pencil')
+                // ->icon('heroicon-o-pencil')
                 ->modalHeading('Edit Requirement')
                 ->form([
                     TextInput::make('description')
@@ -117,8 +117,8 @@ class ViewRequirementsByOffice extends Page implements HasTable
 
             DeleteAction::make()
                 ->label('Delete')
-                ->button()
-                ->icon('heroicon-o-trash'),
+                ->button(),
+                // ->icon('heroicon-o-trash'),
         ];
     }
 

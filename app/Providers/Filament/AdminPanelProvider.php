@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->viteTheme('resources/css/filament/admin/app.css')
+            ->brandName('CITIZEN`S CHARTER')
             ->topNavigation()
             ->colors([
                 'secondoary' => Color::Amber,
