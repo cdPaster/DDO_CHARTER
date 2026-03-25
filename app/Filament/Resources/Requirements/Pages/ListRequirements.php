@@ -9,6 +9,8 @@ use Filament\Resources\Pages\ListRecords;
 class ListRequirements extends ListRecords
 {
     protected static string $resource = RequirementResource::class;
+    // protected  string $view = 'filament.resources.requirements.pages.list-requirements'; // ← add this
+
 
     protected ?string $heading = null;
     protected ?string $subheading = null;

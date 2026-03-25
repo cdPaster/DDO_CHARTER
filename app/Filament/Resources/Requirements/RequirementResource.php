@@ -37,7 +37,7 @@ class RequirementResource extends Resource
         $serviceId = request()->query('service_id');
         if ($serviceId) {
             $table->modifyQueryUsing(
-                fn (Builder $query) => $query->where('service_id', $serviceId)
+                fn(Builder $query) => $query->where('service_id', $serviceId)
             );
         }
 
@@ -45,7 +45,7 @@ class RequirementResource extends Resource
         $officeId = request()->query('office_id');
         if ($officeId) {
             $table->modifyQueryUsing(
-                fn (Builder $query) => $query->where('office_id', $officeId)
+                fn(Builder $query) => $query->where('office_id', $officeId)
             );
         }
 
@@ -65,6 +65,8 @@ class RequirementResource extends Resource
             'index' => ListRequirements::route('/'),
             // 'create' => CreateRequirement::route('/create'),
             // 'edit' => EditRequirement::route('/{record}/edit'),
+            'view-requirements-by-office' =>
+            Pages\ViewRequirementsByOffice::route('/view-requirements-by-office'),
         ];
     }
 }

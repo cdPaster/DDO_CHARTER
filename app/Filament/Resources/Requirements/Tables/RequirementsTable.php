@@ -9,7 +9,7 @@ use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Actions\DeleteAction;
-
+use App\Filament\Resources\Services\ServiceResource;
 
 // use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -42,14 +42,18 @@ class RequirementsTable
             ])
             ->recordActions([
                 DeleteAction::make()
-                    ->label(false)
+                    ->label('Delete')
                     ->color('danger')
                     ->button(),
-                EditAction::make()->color('primary')->label(false)
+                EditAction::make()->color('primary')->label('Edit')
                         ->button(),
                 ViewAction::make('view_services')
+                ->label('View Service')
                     ->button()
                     ->color('info')
+                    ->url(fn($record) => ServiceResource::getUrl('index', [
+                        'office_id' => $record->id, // <-- pass office_id as query
+                    ])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

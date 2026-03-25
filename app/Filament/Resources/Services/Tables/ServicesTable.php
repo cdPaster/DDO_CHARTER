@@ -13,12 +13,13 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Resources\Services\ServiceResource;
+
 class ServicesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
-        ->recordUrl(null)
+            ->recordUrl(null)
             ->columns([
                 TextColumn::make('service_name')
                     ->wrap()
@@ -79,15 +80,16 @@ class ServicesTable
                     ->color('info')
                     ->url(fn($record) => ServiceResource::getUrl('view', ['record' => $record]))
                     ->label('View Process'),
-
+                //goes to the view custom page 
                 Action::make('view_requirements')
                     ->button()
                     ->color('primary')
                     ->label('View Requirements')
                     ->icon('heroicon-o-clipboard-document-list')
-                    ->url(fn($record) => RequirementResource::getUrl('index', [
-                        'service_id' => $record->id,
-                    ])),
+                    ->url(fn($record) => \App\Filament\Resources\Requirements\RequirementResource::getUrl(
+                        'view-requirements-by-office',
+                        ['service_id' => $record->id]
+                    )),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

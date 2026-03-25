@@ -18,4 +18,15 @@ class CreateRequirement extends CreateRecord
             ? RequirementResource::getUrl('index', ['service_id' => $service_id])
             : RequirementResource::getUrl('index');
     }
+    public $service_id;
+    public $service;
+    // moubt method to accept the service
+    public function mount(): void
+    {
+        parent::mount();
+
+        // Read service_id from query string
+        $this->service_id = request()->get('service_id');
+        $this->service = \App\Models\Service::find($this->service_id);
+    }
 }

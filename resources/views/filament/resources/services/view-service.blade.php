@@ -14,28 +14,25 @@
     $unit = $action['processing_time_unit'] ?? 'minutes';
     return match ($unit) {
     'hours' => $time * 60,
-    'days' => $time * 60 * 8,
+    'days' => $time * 24 * 60,  // Fixed: 1 day = 24 hours = 1440 minutes
     default => $time,
     };
     });
 
-    if ($totalMinutes >= 480) {
-    $days = floor($totalMinutes / 480);
-    $remaining = $totalMinutes % 480;
+    // Convert total minutes to readable format (1440 minutes = 1 day)
+    if ($totalMinutes > 0) {
+    $days = floor($totalMinutes / 1440);
+    $remaining = $totalMinutes % 1440;
     $hours = floor($remaining / 60);
-    $mins = $remaining % 60;
-    $parts = ["{$days} day(s)"];
-    if ($hours > 0) $parts[] = "{$hours} hr(s)";
-    if ($mins > 0) $parts[] = "{$mins} min(s)";
-    $totalTimeDisplay = implode(' ', $parts);
-    } elseif ($totalMinutes >= 60) {
-    $hours = floor($totalMinutes / 60);
-    $mins = $totalMinutes % 60;
-    $totalTimeDisplay = $mins > 0
-    ? "{$hours} hr(s) {$mins} min(s)"
-    : "{$hours} hr(s)";
-    } elseif ($totalMinutes > 0) {
-    $totalTimeDisplay = "{$totalMinutes} min(s)";
+    $mins = round($remaining % 60);
+
+    // Build display string
+    $parts = [];
+    if ($days > 0) $parts[] = $days === 1 ? "1 day" : "$days days";
+    if ($hours > 0) $parts[] = $hours === 1 ? "1 hr" : "$hours hrs";
+    if ($mins > 0) $parts[] = $mins === 1 ? "1 min" : "$mins mins";
+
+    $totalTimeDisplay = !empty($parts) ? implode(' ', $parts) : null;
     } else {
     $totalTimeDisplay = null;
     }
@@ -75,7 +72,7 @@
     {{-- Client Steps & Agency Actions Table --}}
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm dark:border-white/10 dark:bg-gray-900">
 
-        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-white/10">
+        <div class="flex flex-col items-start justify-between gap-3 border-b border-gray-200 px-4 py-3 sm:flex-row sm:items-center dark:border-white/10">
             <div class="flex items-center gap-2">
                 <svg class="h-4 w-4 shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -152,14 +149,24 @@
                         </td>
                         @if ($index === 0)
                         <td rowspan="{{ $actionCount }}" class="border-l border-gray-100 px-4 py-3 align-top dark:border-white/10">
-                            <x-filament::button
-                                x-on:click="$wire.mountAction('editDetail', {{ json_encode(['id' => $step['detail_id']]) }})"
-                                icon="heroicon-m-pencil-square"
-                                size="sm"
-                                color="gray"
-                                outlined>
-                                Edit
-                            </x-filament::button>
+                            <div class="flex gap-2">
+                                <x-filament::button
+                                    x-on:click="$wire.mountAction('editDetail', {{ json_encode(['id' => $step['detail_id']]) }})"
+                                    icon="heroicon-m-pencil-square"
+                                    size="sm"
+                                    color="gray"
+                                    outlined>
+                                    Edit
+                                </x-filament::button>
+                                <x-filament::button
+                                    x-on:click="$wire.mountAction('deleteDetail', {{ json_encode(['id' => $step['detail_id']]) }})"
+                                    icon="heroicon-m-trash"
+                                    size="sm"
+                                    color="danger"
+                                    outlined>
+                                    Delete
+                                </x-filament::button>
+                            </div>
                         </td>
                         @endif
                     </tr>
