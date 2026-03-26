@@ -25,7 +25,7 @@ class ListServices extends ListRecords
 
         // Dynamic heading (plain text)
         $this->heading = $this->office
-            ? 'Services for ' . $this->office->name
+            ? 'Available Services for ' . $this->office->name
             : 'Services';
 
         // Dynamic subheading (plain text)
@@ -37,7 +37,11 @@ class ListServices extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+            ->fillForm(fn () => [
+                'office_id' => $this->office_id,
+            ]),
+            
         ];
     }
     

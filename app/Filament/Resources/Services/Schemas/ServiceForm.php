@@ -16,24 +16,27 @@ class ServiceForm
                 Select::make('office_id')
                     ->label('Office')
                     ->relationship('office', 'name') // links to office name
-                    ->required(),
+                    ->required()
+                    ->hidden(fn($get) => filled(request()->get('office_id')))
+                    ->required()
+                    ->dehydrated(), 
 
 
 
                 TextInput::make('service_name')->required(),
                 TextInput::make('service_description'),
-                
+
                 Select::make('service_type')
                     ->label('Service Type')
                     ->multiple()
                     ->options([
-                        'G2C'=> 'G2C',
-                        'G2B'=> 'G2B',
-                        'G2G'=> 'G2G',
+                        'G2C' => 'G2C',
+                        'G2B' => 'G2B',
+                        'G2G' => 'G2G',
                     ]),
 
                 Select::make('classification')
-                ->label('classification')
+                    ->label('classification')
                     ->options([
                         'Simple' => 'Simple',
                         'Complex' => 'Complex',

@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Resources\Services\ServiceResource;
+use Illuminate\Database\Eloquent\Builder;
 
 class ServicesTable
 {
@@ -55,9 +56,9 @@ class ServicesTable
                     ->label('Who may avail'),
             ])
             ->defaultSort('service_name')
+
             ->filters([
-                SelectFilter::make('office')
-                    ->relationship('office', 'name'),
+
                 SelectFilter::make('classification')
                     ->options([
                         'Simple'          => 'Simple',
@@ -65,6 +66,18 @@ class ServicesTable
                         'Technical'       => 'Technical',
                         'Highly Technical' => 'Highly Technical',
                     ]),
+                SelectFilter::make('service_type')
+                    ->label('Service Type')
+                    ->options([
+                        'G2C' => 'G2C',
+                        'G2B' => 'G2B',
+                        'G2G' => 'G2G',
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+        return filled($data['value'])
+            ? $query->whereJsonContains('service_type', $data['value'])
+            : $query;
+    }),
             ])
             ->recordActions([
                 EditAction::make()

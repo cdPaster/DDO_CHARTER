@@ -19,7 +19,7 @@ use Filament\Infolists\Infolist;
 class ServiceResource extends Resource
 {
     protected static ?string $modelHeader = 'Service';
-    protected static ?int $navigationSort = 2;
+    // protected static ?int $navigationSort = 2;
 
     protected static ?string $model = Service::class;
     protected static string|UnitEnum|null $navigationGroup = 'Charter';

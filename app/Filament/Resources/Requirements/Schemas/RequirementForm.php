@@ -26,15 +26,6 @@ class RequirementForm
                     ->label('Where to Secure')
                     ->required(),
 
-                // Service field: hidden if coming from a specific service
-                // $service_id
-                //     ? Hidden::make('service_id')
-                //         ->default($service_id)
-                //     : Select::make('service_id')
-                //         ->label('Service')
-                //         ->options(Service::all()->pluck('service_name', 'id')->toArray())
-                //         ->searchable()
-                //         ->required(),
             ]);
     }
 }

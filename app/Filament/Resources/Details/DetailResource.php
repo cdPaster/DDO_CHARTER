@@ -21,7 +21,7 @@ class DetailResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Charter';
 
-    protected static ?int $navigationSort = 4;
+    // protected static ?int $navigationSort = 4;
 
     public static function getEloquentQuery(): Builder
     {

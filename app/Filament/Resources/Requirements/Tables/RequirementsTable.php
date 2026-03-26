@@ -47,13 +47,13 @@ class RequirementsTable
                     ->button(),
                 EditAction::make()->color('primary')->label('Edit')
                         ->button(),
-                ViewAction::make('view_services')
-                ->label('View Service')
-                    ->button()
-                    ->color('info')
-                    ->url(fn($record) => ServiceResource::getUrl('index', [
-                        'office_id' => $record->id, // <-- pass office_id as query
-                    ])),
+                // ViewAction::make('view_services')
+                // ->label('View Service')
+                //     ->button()
+                //     ->color('info')
+                //     ->url(fn($record) => ServiceResource::getUrl('index', [
+                //         'office_id' => $record->id, // <-- pass office_id as query
+                //     ])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
