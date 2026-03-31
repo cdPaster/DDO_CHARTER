@@ -54,6 +54,13 @@ class ServicesTable
                 TextColumn::make('who_may_avail')
                     ->wrap()
                     ->label('Who may avail'),
+                TextColumn::make('requirements_count')
+                    ->label('Requirements')
+                    ->counts('requirements')
+                    ->alignCenter()
+                    ->badge()
+                    ->color('info'),
+
             ])
             ->defaultSort('service_name')
 
@@ -74,10 +81,10 @@ class ServicesTable
                         'G2G' => 'G2G',
                     ])
                     ->query(function (Builder $query, array $data): Builder {
-        return filled($data['value'])
-            ? $query->whereJsonContains('service_type', $data['value'])
-            : $query;
-    }),
+                        return filled($data['value'])
+                            ? $query->whereJsonContains('service_type', $data['value'])
+                            : $query;
+                    }),
             ])
             ->recordActions([
                 EditAction::make()
@@ -92,7 +99,7 @@ class ServicesTable
                     ->button()
                     ->color('info')
                     ->url(fn($record) => ServiceResource::getUrl('view', ['record' => $record]))
-                    ->label('View Process'),
+                    ->label('Process'),
                 //goes to the view custom page 
                 Action::make('view_requirements')
                     ->button()

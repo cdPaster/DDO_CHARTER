@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Offices\Schemas;
 
 use Filament\Schemas\Schema;
 
-class OfficeForm
+class OfficeInfolist
 {
     public static function configure(Schema $schema): Schema
     {

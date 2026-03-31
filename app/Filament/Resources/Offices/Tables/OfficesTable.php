@@ -2,27 +2,42 @@
 
 namespace App\Filament\Resources\Offices\Tables;
 
+use App\Filament\Resources\Offices\OfficeResource;
 use App\Filament\Resources\Services\ServiceResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Actions\DeleteAction;
+use Filament\Actions\Action;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ImageColumn;
-
 
 class OfficesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
-
             ->columns([
-                TextColumn::make('id')->label('ID')->sortable(),
-                TextColumn::make('name')->label('Office Name')->searchable(true),
-                TextColumn::make('abbreviation')->label('Abbreviation')->sortable(),
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+
+                TextColumn::make('name')
+                    ->label('Office Name')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('abbreviation')
+                    ->label('Abbreviation')
+                    ->sortable(),
+
+                TextColumn::make('services_count')
+                    ->label('Services')
+                    ->counts('services')
+                    ->badge()
+                    ->color('info'),
+                
             ])
             ->filters([
                 //
@@ -40,13 +55,22 @@ class OfficesTable
                     ->icon('heroicon-o-trash')
                     ->color('danger'),
 
-                ViewAction::make('view_services')
+                Action::make('view_services')
                     ->button()
-                    ->label('View Services')
+                    ->label('Services')
                     ->color('info')
                     ->icon('heroicon-o-briefcase')
                     ->url(fn($record) => ServiceResource::getUrl('index', [
-                        'office_id' => $record->id, // <-- pass office_id as query
+                        'office_id' => $record->id,
+                    ])),
+
+                Action::make('view_details')
+                    ->button()
+                    ->label('View Details')
+                    ->color('success')
+                    ->icon('heroicon-o-document-magnifying-glass')
+                    ->url(fn($record) => OfficeResource::getUrl('view', [
+                        'record' => $record->id,
                     ])),
             ])
             ->toolbarActions([

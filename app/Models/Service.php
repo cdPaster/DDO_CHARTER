@@ -37,7 +37,7 @@ class Service extends Model
     /**
      * Get the requirements for this service
      */
-    public function requirements(): HasMany
+    public function requirements()
     {
         return $this->hasMany(Requirement::class);
     }
